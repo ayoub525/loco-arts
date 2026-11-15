@@ -1,0 +1,50 @@
+services:
+  # Backend API
+  - type: web
+    name: loco-arts-api
+    runtime: node
+    plan: free
+    region: frankfurt
+    rootDir: server
+    buildCommand: npm install && npx prisma generate
+    startCommand: node src/app.js
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 5000
+      - key: DATABASE_URL
+        fromDatabase:
+          name: loco-arts-db
+          property: connectionString
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: CLIENT_URL
+        fromService:
+          type: web
+          name: loco-arts-client
+          property: host
+
+  # Frontend React (Vite)
+  - type: web
+    name: loco-arts-client
+    runtime: static
+    plan: free
+    region: frankfurt
+    rootDir: client
+    buildCommand: npm install && npm run build
+    staticPublishPath: ./dist
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+
+# Database PostgreSQL Gratuite
+databases:
+  - name: loco-arts-db
+    plan: free
+    region: frankfurt
+    databaseName: loco_arts
+    user: loco_admin
