@@ -1,0 +1,33 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    font-family: 'Inter', sans-serif;
+  }
+  body {
+    @apply bg-white text-black antialiased;
+  }
+  ::selection {
+    @apply bg-black text-white;
+  }
+}
+
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  .section-padding {
+    @apply py-16 md:py-24;
+  }
+  .btn-primary {
+    @apply bg-black text-white px-6 py-3 font-heading font-semibold tracking-wide
+           hover:bg-gray-800 transition-all duration-200 text-sm uppercase;
+  }
+  .btn-secondary {
+    @apply bg-white text-black border-2 border-black px-6 py-3 font-heading font-semibold tracking-wide
+           hover:bg-black hover:text-white transition-all duration-200 text-sm uppercase;
+  }
+}
