@@ -1,5 +1,5 @@
 services:
-  # Backend API
+  # Backend API Express
   - type: web
     name: loco-arts-api
     runtime: node
@@ -7,7 +7,7 @@ services:
     region: frankfurt
     rootDir: server
     buildCommand: npm install && npx prisma generate
-    startCommand: node src/app.js
+    startCommand: npx prisma db push && npm run db:seed && node src/app.js
     envVars:
       - key: NODE_ENV
         value: production
@@ -31,12 +31,16 @@ services:
   - type: web
     name: loco-arts-client
     runtime: static
-    plan: free
-    region: frankfurt
     rootDir: client
     buildCommand: npm install && npm run build
     staticPublishPath: ./dist
     routes:
+      - type: rewrite
+        source: /api/*
+        destination: https://loco-arts-api.onrender.com/api/*
+      - type: rewrite
+        source: /uploads/*
+        destination: https://loco-arts-api.onrender.com/uploads/*
       - type: rewrite
         source: /*
         destination: /index.html

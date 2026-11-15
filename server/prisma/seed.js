@@ -6,6 +6,12 @@ const prisma = new PrismaClient();
 async function main() {
   console.log('🌱 Seeding database...');
 
+  const existingAdmin = await prisma.user.findFirst({ where: { role: 'ADMIN' } });
+  if (existingAdmin) {
+    console.log('Database already initialized, skipping seed.');
+    return;
+  }
+
   // Clean existing data
   await prisma.wishlist.deleteMany();
   await prisma.shipment.deleteMany();
