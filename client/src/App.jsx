@@ -18,6 +18,8 @@ import TrackOrder from './pages/TrackOrder';
 // Auth & Customer account
 import Login from './pages/Account/Login';
 import Register from './pages/Account/Register';
+import ForgotPassword from './pages/Account/ForgotPassword';
+import ResetPassword from './pages/Account/ResetPassword';
 import Profile from './pages/Account/Profile';
 import MyOrders from './pages/Account/MyOrders';
 import OrderDetail from './pages/Account/OrderDetail';
@@ -106,6 +108,8 @@ export default function App() {
                 {/* Account */}
                 <Route path="/connexion" element={<Login />} />
                 <Route path="/inscription" element={<Register />} />
+                <Route path="/mot-de-passe-oublie" element={<ForgotPassword />} />
+                <Route path="/reinitialiser-mot-de-passe" element={<ResetPassword />} />
                 <Route
                   path="/compte/profil"
                   element={

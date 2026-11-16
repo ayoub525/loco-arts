@@ -49,7 +49,12 @@ export default function Login() {
           />
         </div>
         <div>
-          <label className="block text-sm font-semibold mb-1">{t('auth.password')}</label>
+          <div className="flex justify-between items-center mb-1">
+            <label className="block text-sm font-semibold">{t('auth.password')}</label>
+            <Link to="/mot-de-passe-oublie" className="text-xs text-gray-500 hover:text-black underline font-medium">
+              {t('auth.forgotPassword')}
+            </Link>
+          </div>
           <input
             type="password"
             required
